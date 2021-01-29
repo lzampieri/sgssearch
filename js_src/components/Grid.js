@@ -1,5 +1,4 @@
-import React from 'react';
-import Card from './Card';
+import Card from './Card.js';
 
 class Grid extends React.Component {
     render() {

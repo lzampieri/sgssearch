@@ -1,5 +1,4 @@
-import './App.css';
-import Grid from './components/Grid';
+import Grid from './components/Grid.js';
 
 function App() {
   var items = [
@@ -13,7 +12,7 @@ function App() {
     {id: 8, name: "pipeasdspo"},
   ];
   return (
-    <div className="App container-fluid">
+    <div className="App container-fluid text-center">
       <Grid items={items} />
     </div>
   );
