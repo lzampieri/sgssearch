@@ -2,7 +2,16 @@ import './App.css';
 import Grid from './components/Grid';
 
 function App() {
-  var items = ["pippo", "paolo", "giacomo", "francesco francesco francesco francesco francesco francesco francesco", "pippo", "paolo", "giacomo", "francesco","pippo", "paolo", "giacomo", "francesco"];
+  var items = [
+    {id: 1, name: "pippo"},
+    {id: 2, name: "pippofe"},
+    {id: 3, name: "pippfsdo"},
+    {id: 4, name: "pippefso"},
+    {id: 5, name: "pipvdpo"},
+    {id: 6, name: "pippeo"},
+    {id: 7, name: "pippdso"},
+    {id: 8, name: "pipeasdspo"},
+  ];
   return (
     <div className="App container-fluid">
       <Grid items={items} />
