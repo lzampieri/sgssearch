@@ -11,3 +11,5 @@ Most useful folders are:
 * `routes` directory, and in particular:
   * `web.php` which contains routes for webpages
   * `api.php` which contains routes for api
+* `app` directory, and in particular:
+  * `Models` directory, which contain list of models
