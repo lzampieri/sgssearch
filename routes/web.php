@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* Socialite OAuth */
+Route::get('/login_google', [ GoogleAuthController::class, 'redirect' ] )->name('login-google');
+Route::get('/auth_google', [ GoogleAuthController::class, 'callback' ] )->name('callback-google');
+Route::get('/logout_google', [ GoogleAuthController::class, 'logout' ] )->name('logout-google');
+
+/* Login */
+Route::redirect('/login', 'login_google' ) -> name('login') ;
+Route::redirect('/logout', 'logout_google' ) -> name('logout') ;
+
+
 Route::middleware(['auth'])->group(function() {
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('home');
 });
 
 Route::get('/amilogin', function () {
     return 'No';
 });
 
-Route::any('/login', function() {
-    return 'Login page';
-})->name('login');
+
+
+
+
+
