@@ -18,9 +18,18 @@ class GoogleAuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+    public static function extractName($themail) {
+        $thename = substr( $themail, 0, strpos( $themail, '@' ) );
+        $thename = preg_replace( [ '/\d/' , '/\./' ] , [ '' , ' ' ] , $thename );
+        $thename = ucwords($thename);
+        $thename = trim($thename);
+        return $thename;
+    }
+
     public function callback() {
         $user = Socialite::driver('google')->user();
-        $theUser = User::firstOrCreate( ['email' => $user->getEmail() ]);
+        // TODO: insert checks on mail domain
+        $theUser = User::firstOrCreate( ['email' => $user->getEmail() ], ['name' => GoogleAuthController::extractName( $user->getEmail() )]);
         Auth::login($theUser);
         return redirect( route( 'home' ) );
     }
