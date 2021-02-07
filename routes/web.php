@@ -30,10 +30,6 @@ Route::middleware(['auth'])->group(function() {
     })->name('home');
 });
 
-Route::get('/amilogin', function () {
-    return 'No';
-});
-
 Route::get('/react_test', function () {
     return view('react_test');
 });
