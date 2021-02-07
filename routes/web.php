@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +32,10 @@ Route::middleware(['auth'])->group(function() {
 
 Route::get('/amilogin', function () {
     return 'No';
+});
+
+Route::get('/react_test', function () {
+    return view('react_test');
 });
 
 
