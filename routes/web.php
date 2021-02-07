@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +27,26 @@ Route::redirect('/logout', 'logout_google' ) -> name('logout') ;
 
 
 Route::middleware(['auth'])->group(function() {
+    
+    // Home Page
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    // API-like webapp tools
+    Route::prefix('web_api')->group(function() {
+        // User details
+        Route::get('/details', function () {
+            return Auth::user();
+        })->name('details');
+        
+        // User enigma
+        Route::get('/enigmas', function () {
+            return Auth::user()->solvedEnigmas()->get();
+        })->name('enigmas');
+    });
 });
 
 Route::get('/react_test', function () {
     return view('react_test');
 });
-
-
-
-
-
-

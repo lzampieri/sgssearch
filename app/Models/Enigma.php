@@ -18,7 +18,7 @@ class Enigma extends Model
     ];
 
     public function solvedBy() {
-        return $this->hasManyThrough( User::class, SolvedEnigma::class );
+        return $this->belongsToMany( User::class, 'solved_enigmas' );
     }
 
     public function solutions() {

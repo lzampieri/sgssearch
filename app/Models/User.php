@@ -15,16 +15,19 @@ class User extends Authenticatable
         'email',
         'name'
     ];
+    protected $appends = [
+        'total_points'
+    ];
 
     public function solvedEnigmas() {
-        return $this->hasManyThrough( Enigma::class, SolvedEnigma::class );
+        return $this->belongsToMany( Enigma::class, 'solved_enigmas' );
     }
 
-    public function totalPoints() {
-        return array_sum( $this->solvedEnigmas()->pluck('points') );
+    public function getTotalPointsAttribute() {
+        return $this->solvedEnigmas()->pluck('points')->sum();
     }
 
     public function visibleEnigmas() {
-        return Enigma::where( 'accessible_at', '<', $this->totalPoints() + 1 );
+        return Enigma::where( 'accessible_at', '<', $this->total_points + 1 );
     }
 }
