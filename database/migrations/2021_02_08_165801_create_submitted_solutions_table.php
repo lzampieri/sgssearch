@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSolutionsTable extends Migration
+class CreateSubmittedSolutionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSolutionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('solutions', function (Blueprint $table) {
+        Schema::create('submitted_solutions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('value');
-            $table->boolean('valid');
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('enigma_id')->constrained();
         });
     }
@@ -29,6 +29,6 @@ class CreateSolutionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solutions');
+        Schema::dropIfExists('submitted_solutions');
     }
 }
