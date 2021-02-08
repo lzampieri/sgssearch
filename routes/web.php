@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function() {
     
     // Home Page
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     })->name('home');
 
     // API-like webapp tools
