@@ -6,13 +6,12 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_details: "Loading",
-            user_enigmas: "Loading"
+            user_details: null,
+            user_enigmas: null
         };
     }
 
     componentDidMount() {
-        console.log("Loading...");
         $.get( 'web_api/details').done( res => { this.setState( { user_details: res } ); });
         $.get( 'web_api/enigmas').done( res => { this.setState( { user_enigmas: res } ); });
     }  
@@ -23,7 +22,7 @@ class Home extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-header">Ciao { JSON.stringify(this.state.user_details) } </div>
+                            <div className="card-header">Ciao { this.state.user_details && this.state.user_details.name } </div>
     
                             <div className="card-body">I tuoi enigmi sono { JSON.stringify(this.state.user_enigmas) } </div>
                         </div>
