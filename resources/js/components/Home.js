@@ -4,6 +4,7 @@ import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider } from '@materia
 import UserDetails from './UserDetails';
 import EnigmasList from './EnigmasList';
 import { SnackbarProvider, withSnackbar } from 'notistack';
+import EnigmaPaper from './EnigmaPaper';
 
 const theme = createMuiTheme({
     palette: {
@@ -46,16 +47,14 @@ class Home extends React.Component {
                 <CssBaseline />
                 <Box height="100vh" display="flex" justifyContent="center" alignContent="center" flexWrap="wrap">
                     <Box display="flex" style={{ width: "70%", maxHeight: "80%" }}>
-                        <Box flexShrink={1} m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
-                            <Paper variant="outlined" style={{ height: "100%", overflow: 'auto' }}>
-                                <EnigmasList whenCalled={this.sayHello.bind(this)} />
+                        <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
+                            <Paper variant="outlined" style={{ height: "100%", overflow: 'auto'  }}>
+                                <EnigmasList whenCalled={this.sayHello.bind(this)}  />
                             </Paper>
                         </Box>
-                        <Box flexShrink={1} m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
-                            <Paper variant="outlined" style={{ height: "100%", overflow: 'auto' }}>
-                                <Box p={2}>
-                                    { this.state.selected } 
-                                </Box>
+                        <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
+                            <Paper variant="outlined" style={{ height: "100%" }}>
+                                <EnigmaPaper />
                             </Paper>
                         </Box>
                     </Box>

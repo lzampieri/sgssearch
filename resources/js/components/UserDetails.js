@@ -18,16 +18,16 @@ class UserDetails extends React.Component {
     render() {
         if( !this.state.user_details ) return "";
         return (
-            <Box display="flex" justifyContent="space-between" width={1} color="inherit">
-                <span>
+            <Box display="flex" width={1} color="inherit">
+                <Box width={0.33}>
                     { this.state.user_details.name }
-                </span>
-                <span>
+                </Box>
+                <Box width={0.34} textAlign="center">
                     { this.state.user_details.total_points } punti
-                </span>
-                <span color="inherit">
+                </Box>
+                <Box width={0.33} color="inherit" textAlign="right">
                     <a href="logout" color="inherit">Logout</a>
-                </span>
+                </Box>
             </Box>
         );
     }
