@@ -12,7 +12,8 @@ class Solution extends Model
      * @var array
      */
     protected $fillable = [
-        'text',
+        'value',
+        'int',
         'valid'
     ];
 

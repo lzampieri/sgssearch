@@ -17,6 +17,7 @@ class CreateSolutionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('value');
+            $table->string('hint');
             $table->boolean('valid');
             $table->foreignId('enigma_id')->constrained();
         });
