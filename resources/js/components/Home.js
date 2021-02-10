@@ -37,7 +37,6 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        $.get( 'web_api/enigmas').done( res => { this.setState( { user_enigmas: res } ); });
     }  
 
     render() {

@@ -1,53 +1,29 @@
 import React from 'react';
 import { Box, Fab, IconButton, TextField } from '@material-ui/core';
-import { Clear, Save, Check } from '@material-ui/icons';
+import { Clear, Save, Check, HourglassEmpty } from '@material-ui/icons';
 import EnigmaButton from './EnigmaButton';
 import { withSnackbar } from 'notistack';
-import { palette } from '@material-ui/system';
+import SendButton from './SendButton';
   
 class EnigmaPaper extends React.Component {
+    fabIcon = { 0: <Save />, 1: <HourglassEmpty />, 2: <Check />, 3: <Clear />};
+    fabBackgroundColor = { 0: "white", 1: "white", 2: "green", 3: "red"};
 
     constructor(props) {
         super(props);
         this.state = {
-            saved: 0,
-            loading: false
+            response: 0  // 0: Nothing, 1: Loading, 2: Success, 3: Failed
         };
-    }
-
-    whenCalled(num) {
-        this.props.enqueueSnackbar("Clicked over " + num);
-        this.props.whenCalled(num);
     }
     
     load() {
-        if( this.state.saved == 0 ) {
-            if( !this.state.loading ) this.setState( { loading: true });
-            else this.setState( {loading: false, saved: 1} );
-        } else if( this.state.saved == 1 )
-            this.setState( {saved: -1} );
-        else {
-            this.setState( {saved: 0} );
-            return;
-        }
+        var newres = ( this.state.response + 1 ) % 4;
+        this.setState( { response: newres });
+        if( newres == 0 ) return;
         setTimeout( this.load.bind(this), 1000 );
     }
 
     render() {
-        let icon, style;
-        if( this.state.saved == 0 ) {
-            icon = <Save />;
-            style = {};
-        }
-        else if( this.state.saved == 1 ) {
-            icon = <Check />;
-            style = {backgroundColor: "green"};
-        }
-        else {
-            icon = <Clear />;
-            style = {backgroundColor: "red"};
-        }
-
         return (
             <Box p={2} display="flex" flexDirection="column" style={{ height: "100%" }}>
                 <Box flexGrow={1} style={{ overflow: "auto "}}>
@@ -57,9 +33,7 @@ class EnigmaPaper extends React.Component {
                     <Box flexGrow={1}>
                         <TextField id="standard-basic" label="Rispondi..." style={{ width: "100%" }}/>
                     </Box>
-                    <Fab disabled={this.state.loading} onClick={ this.load.bind(this) } color="inherit" style={ style }>
-                        { icon }
-                    </Fab>
+                    <SendButton response={this.state.response} onClick={ this.load.bind(this) } />
                 </Box>
             </Box>
         );
