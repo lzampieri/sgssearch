@@ -1,13 +1,9 @@
 import React from 'react';
-import { Box, Fab, IconButton, TextField } from '@material-ui/core';
-import { Clear, Save, Check, HourglassEmpty } from '@material-ui/icons';
+import { Box, TextField } from '@material-ui/core';
 import EnigmaButton from './EnigmaButton';
-import { withSnackbar } from 'notistack';
 import SendButton from './SendButton';
   
 class EnigmaPaper extends React.Component {
-    fabIcon = { 0: <Save />, 1: <HourglassEmpty />, 2: <Check />, 3: <Clear />};
-    fabBackgroundColor = { 0: "white", 1: "white", 2: "green", 3: "red"};
 
     constructor(props) {
         super(props);
@@ -23,6 +19,12 @@ class EnigmaPaper extends React.Component {
         setTimeout( this.load.bind(this), 1000 );
     }
 
+    handleKeyPress = (e) => {
+        if( e.key == 'Enter' ) {
+            this.load();
+        }
+    }
+
     render() {
         return (
             <Box p={2} display="flex" flexDirection="column" style={{ height: "100%" }}>
@@ -31,9 +33,9 @@ class EnigmaPaper extends React.Component {
                 </Box>
                 <Box pt={2} display="flex" flexDirection="row">
                     <Box flexGrow={1}>
-                        <TextField id="standard-basic" label="Rispondi..." style={{ width: "100%" }}/>
+                        <TextField label="Rispondi..." style={{ width: "100%" }} onKeyPress={ this.handleKeyPress.bind(this) }/>
                     </Box>
-                    <SendButton response={this.state.response} onClick={ this.load.bind(this) } />
+                    <SendButton response={this.state.response} onClick={ (e) => this.load.bind(this) } />
                 </Box>
             </Box>
         );
@@ -41,4 +43,4 @@ class EnigmaPaper extends React.Component {
     
 }
 
-export default withSnackbar(EnigmaPaper);
+export default EnigmaPaper;

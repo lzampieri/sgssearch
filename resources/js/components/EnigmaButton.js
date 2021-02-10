@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Button, CardContent } from '@material-ui/core';
-import { withSnackbar } from 'notistack';
+import { Box, Button } from '@material-ui/core';
   
 class EnigmaButton extends React.Component {
 
@@ -28,4 +27,4 @@ class EnigmaButton extends React.Component {
     
 }
 
-export default withSnackbar(EnigmaButton);
+export default EnigmaButton;

@@ -9,15 +9,6 @@ import EnigmaPaper from './EnigmaPaper';
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
-    //   primary: {
-    //     main: purple[500],
-    //   },
-    //   secondary: {
-    //     main: green[500],
-    //   },
-    //   background: {
-    //       default: 
-    //   }
     },
   });
   
