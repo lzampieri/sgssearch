@@ -15,7 +15,7 @@
     </head>
     <body >
         @isset( $admin )
-        Admin page!
+        <div id="admin_page"></div>
         @else
         <div id="home"></div>
         @endisset
