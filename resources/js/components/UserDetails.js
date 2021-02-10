@@ -26,6 +26,9 @@ class UserDetails extends React.Component {
                     { this.state.user_details.total_points } punti
                 </Box>
                 <Box width={0.33} color="inherit" textAlign="right">
+                    { this.state.user_details.admin == 1 && 
+                        <a href="admin" color="inherit">Admin</a>  
+                    }
                     <a href="logout" color="inherit">Logout</a>
                 </Box>
             </Box>

@@ -47,6 +47,13 @@ Route::middleware(['auth'])->group(function() {
     });
 });
 
+Route::middleware(['auth.admin'])->group(function() {
+    // Admin page
+    Route::get('/admin', function () {
+        return view('home', ['admin' => true]);
+    })->name('admin');
+});
+
 Route::get('/react_test', function () {
     return view('react_test');
 });

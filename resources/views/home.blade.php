@@ -14,8 +14,12 @@
 
     </head>
     <body >
+        @isset( $admin )
+        Admin page!
+        @else
         <div id="home"></div>
-        
+        @endisset
+
         <script src="{{ url(mix('js/app.js')) }}"> </script>
         
     </body>
