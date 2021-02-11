@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EditEnigmaController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,14 @@ Route::middleware(['auth.admin'])->group(function() {
     Route::get('/admin', function () {
         return view('home', ['admin' => true]);
     })->name('admin');
+
+    // API-like webapp tools
+    Route::prefix('web_api')->group(function() {
+        // All enigmas
+        Route::get('/all_enigmas', [ EditEnigmaController::class, 'allEnigmas' ]);
+        // Edit enigma
+        Route::post('/edit_enigma', [ EditEnigmaController::class, 'editEnigma' ]);
+    });
 });
 
 Route::get('/react_test', function () {

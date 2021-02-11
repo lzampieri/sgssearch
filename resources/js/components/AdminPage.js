@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Box, createMuiTheme, CssBaseline, Paper, Link, ThemeProvider } from '@material-ui/core';
+import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider, ListItemText, Backdrop, CircularProgress } from '@material-ui/core';
 import { SnackbarProvider, withSnackbar } from 'notistack';
+import EditEnigma from './EditEnigma';
 
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
     },
+    backdrop: {
+        zIndex: 1500
+      }    
   });
   
 
@@ -16,7 +20,8 @@ class AdminPage extends React.Component {
         super(props);
         this.state = {
             enigmas: [],
-            selected: -1
+            selected: -1,
+            loading: true
         };
     }
 
@@ -25,7 +30,18 @@ class AdminPage extends React.Component {
     }
 
     componentDidMount() {
-    }  
+        this.reload();
+    }
+
+    async reload() {
+        this.setState( { loading: true } );
+        await $.get( 'web_api/all_enigmas', data => {
+            var ordered_enigmas = [];
+            data.map( (e) => ordered_enigmas[e.id] = e ); 
+            this.setState({ enigmas: ordered_enigmas }) 
+        }).promise();
+        this.setState( { loading: false } );
+    }
 
     render() {
         return (
@@ -33,22 +49,24 @@ class AdminPage extends React.Component {
             <SnackbarProvider maxSnack={3}>
                 <CssBaseline />
                 <Box height="100vh" display="flex" justifyContent="center" alignContent="center" flexWrap="wrap">
-                    <Box display="flex" style={{ width: "70%", maxHeight: "80%" }}>
+                    <Box display="flex" style={{ width: "90%", height: "80%" }}>
                         <Paper style={{ width: "20%", height: "100%" }} variant="outlined">
-                            <ul>
+                            <List style={{ overflow: 'auto'}} dense={true}>
                                 { this.state.enigmas.map( (e) =>
-                                    <li><Link onClick={this.selectEnigma.bind(this,e.id)}> e.id </Link></li>
+                                    <ListItem button selected={ e.id == this.state.selected } key={ e.id } onClick={this.selectEnigma.bind(this,e.id)}><ListItemText primary={ e.id } /></ListItem>
                                 )}
-                                <li><Link onClick={this.selectEnigma.bind(this,-1)}>New enigma</Link></li>
-                            </ul>
+                                <ListItem button selected={ -1 == this.state.selected } onClick={this.selectEnigma.bind(this,-1)}><ListItemText primary="New enigma" /></ListItem>
+                            </List>
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
-                            {this.state.selected}
+                            <EditEnigma enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined" />
                     </Box>
                 </Box>
-
+                <Backdrop open={this.state.loading} style={{ zIndex: 1500 }}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </SnackbarProvider>
             </ThemeProvider>
         );
