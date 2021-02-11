@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider } from '@material-ui/core';
+import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider, CircularProgress, Backdrop } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import EnigmasList from './EnigmasList';
 import { SnackbarProvider, withSnackbar } from 'notistack';
@@ -18,17 +18,28 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_enigmas: null,
-            selected: -1
+            enigmas: [],
+            selected: -1,
+            loading: true
         };
     }
 
-    sayHello(num) {
-        this.setState( {selected: num });
+    select(id) {
+        this.setState( {selected: id });
     }
 
     componentDidMount() {
+        this.load();
     }  
+
+    async load() {
+        this.setState( {loading: true});
+        $.get('web_api/enigmas', (data) => {
+            var ordered_enigmas = [];
+            data.map( (e) => ordered_enigmas[e.id] = e );
+            this.setState( { enigmas: ordered_enigmas, loading: false });
+        });
+    }
 
     render() {
         return (
@@ -39,12 +50,12 @@ class Home extends React.Component {
                     <Box display="flex" style={{ width: "70%", maxHeight: "80%" }}>
                         <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
                             <Paper variant="outlined" style={{ height: "100%", overflow: 'auto'  }}>
-                                <EnigmasList whenCalled={this.sayHello.bind(this)}  />
+                                <EnigmasList select={this.select.bind(this)} enigmas={this.state.enigmas} selected={this.state.selected} />
                             </Paper>
                         </Box>
                         <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
                             <Paper variant="outlined" style={{ height: "100%" }}>
-                                <EnigmaPaper />
+                                <EnigmaPaper enigma={ this.state.enigmas[this.state.selected] }/>
                             </Paper>
                         </Box>
                     </Box>
@@ -52,7 +63,9 @@ class Home extends React.Component {
                         <UserDetails />
                     </Box>
                 </Box>
-
+                <Backdrop open={this.state.loading} style={{ zIndex: 1500 }}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </SnackbarProvider>
             </ThemeProvider>
         );

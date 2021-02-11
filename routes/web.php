@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function() {
         
         // User enigma
         Route::get('/enigmas', function () {
-            return Auth::user()->solvedEnigmas()->get();
+            return Auth::user()->visibleEnigmas()->get();
         })->name('enigmas');
     });
 });

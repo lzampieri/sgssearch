@@ -18,7 +18,7 @@ class EnigmaButton extends React.Component {
     render() {
         return (
             <Box style={{ width: "25%" }} p={2} onClick={this.whenCalled.bind(this,this.props.num)}>
-                <Button variant="contained" disabled={ this.props.num < 0 } >
+                <Button variant={ this.props.active ? "contained" : "outlined" } disabled={ this.props.num < 0 } a >
                     { this.props.num < 0 ? "..." : this.props.num }
                 </Button>
             </Box>
