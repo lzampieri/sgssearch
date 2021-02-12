@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider, ListItemText, Backdrop, CircularProgress } from '@material-ui/core';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import EditEnigma from './EditEnigma';
+import EditSolutions from './EditSolutions';
 
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
-    },
-    backdrop: {
-        zIndex: 1500
-      }    
+    }
   });
   
 
@@ -61,7 +59,9 @@ class AdminPage extends React.Component {
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
                             <EditEnigma enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
                         </Paper>
-                        <Paper style={{ width: "40%", height: "100%" }} variant="outlined" />
+                        <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
+                            <EditSolutions enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
+                        </Paper>
                     </Box>
                 </Box>
                 <Backdrop open={this.state.loading} style={{ zIndex: 1500 }}>

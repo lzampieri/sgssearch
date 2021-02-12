@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\EditEnigmaController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\UserEnigmaController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +36,11 @@ Route::middleware(['auth'])->group(function() {
     // API-like webapp tools
     Route::prefix('web_api')->group(function() {
         // User details
-        Route::get('/details', function () {
-            return Auth::user();
-        })->name('details');
-        
-        // User enigma
-        Route::get('/enigmas', function () {
-            return Auth::user()->visibleEnigmas()->get();
-        })->name('enigmas');
+        Route::get('/details', [ UserEnigmaController::class, 'userDetails' ])->name('details');
+        // User enigmas
+        Route::get('/enigmas', [ UserEnigmaController::class, 'userEnigmas' ])->name('enigmas');
+        // Submit solution
+        Route::post('/check_solution', [ UserEnigmaController::class, 'checkSolution' ])->name('check_solution');
     });
 });
 
@@ -60,6 +56,8 @@ Route::middleware(['auth.admin'])->group(function() {
         Route::get('/all_enigmas', [ EditEnigmaController::class, 'allEnigmas' ]);
         // Edit enigma
         Route::post('/edit_enigma', [ EditEnigmaController::class, 'editEnigma' ]);
+        // Edit solution
+        Route::post('/edit_solution', [ EditEnigmaController::class, 'editSolution' ]);
     });
 });
 

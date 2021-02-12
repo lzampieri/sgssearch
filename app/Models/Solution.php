@@ -13,7 +13,7 @@ class Solution extends Model
      */
     protected $fillable = [
         'value',
-        'int',
+        'hint',
         'valid'
     ];
 

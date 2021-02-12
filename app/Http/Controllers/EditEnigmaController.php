@@ -12,7 +12,11 @@ class EditEnigmaController extends Controller
     | Controller for edit enigmas
     */
     public function allEnigmas() {
-        return Enigma::all();
+        $enigmas = Enigma::all()->map( function($enigma) {
+            $enigma['solutions'] = $enigma->solutions()->get();
+            return $enigma;
+        });
+        return $enigmas;
     }
 
     public function editEnigma(Request $request) {
@@ -28,5 +32,22 @@ class EditEnigmaController extends Controller
         else
             $enigma = Enigma::find($id)->update( $values );
         return $enigma;
+    }
+
+    public function editSolution(Request $request) {
+        $params = $request->all();
+        $enigma_id = $params['enigma_id'];
+        $enigma = Enigma::find($enigma_id);
+        $id = $params['id'];
+        $values = [
+            'value' => $params['value'],
+            'hint' => $params['hint'],
+            'valid' => $params['valid']
+        ];
+        if( $id == -1 )
+            $solution = $enigma->solutions()->create( $values );
+        else
+            $solution = $enigma->solutions()->find( $id )->update( $values );
+        return $solution;
     }
 }

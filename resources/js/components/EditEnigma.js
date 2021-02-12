@@ -46,7 +46,7 @@ class EditEnigma extends React.Component {
                 enableReinitialize = {true}
             >
                 { ({submitForm, isSubmitting, errors}) => (
-                <Form style={{ width: "100%" }} p={2}>
+                <Form style={{ width: "100%" }} p={2} >
                     <Field
                         component={TextField}
                         name="id"

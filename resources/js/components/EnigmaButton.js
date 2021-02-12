@@ -16,9 +16,11 @@ class EnigmaButton extends React.Component {
     }
 
     render() {
+        var style = {};
+        if( this.props.solved && !this.props.active ) style.backgroundColor = "green";
         return (
             <Box style={{ width: "25%" }} p={2} onClick={this.whenCalled.bind(this,this.props.num)}>
-                <Button variant={ this.props.active ? "contained" : "outlined" } disabled={ this.props.num < 0 } a >
+                <Button variant={ this.props.active || this.props.solved ? "contained" : "outlined" } disabled={ this.props.num < 0 } style={ style }>
                     { this.props.num < 0 ? "..." : this.props.num }
                 </Button>
             </Box>

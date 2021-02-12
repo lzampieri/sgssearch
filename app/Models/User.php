@@ -23,6 +23,10 @@ class User extends Authenticatable
         return $this->belongsToMany( Enigma::class, 'solved_enigmas' );
     }
 
+    public function submittedSolutions() {
+        return $this->hasMany( SubmittedSolution::class );
+    }
+
     public function getTotalPointsAttribute() {
         return $this->solvedEnigmas()->pluck('points')->sum();
     }

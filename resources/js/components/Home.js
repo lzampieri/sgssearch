@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider, CircularProgress, Backdrop } from '@material-ui/core';
 import UserDetails from './UserDetails';
-import EnigmasList from './EnigmasList';
+import ButtonsList from './ButtonsList';
 import { SnackbarProvider, withSnackbar } from 'notistack';
-import EnigmaPaper from './EnigmaPaper';
+import EnigmaContent from './EnigmaContent';
 
 const theme = createMuiTheme({
     palette: {
@@ -19,6 +19,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             enigmas: [],
+            user_details: {},
             selected: -1,
             loading: true
         };
@@ -39,6 +40,7 @@ class Home extends React.Component {
             data.map( (e) => ordered_enigmas[e.id] = e );
             this.setState( { enigmas: ordered_enigmas, loading: false });
         });
+        $.get( 'web_api/details').done( res => { this.setState( { user_details: res } ); });
     }
 
     render() {
@@ -50,17 +52,17 @@ class Home extends React.Component {
                     <Box display="flex" style={{ width: "70%", maxHeight: "80%" }}>
                         <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
                             <Paper variant="outlined" style={{ height: "100%", overflow: 'auto'  }}>
-                                <EnigmasList select={this.select.bind(this)} enigmas={this.state.enigmas} selected={this.state.selected} />
+                                <ButtonsList select={this.select.bind(this)} enigmas={this.state.enigmas} selected={this.state.selected} />
                             </Paper>
                         </Box>
                         <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
                             <Paper variant="outlined" style={{ height: "100%" }}>
-                                <EnigmaPaper enigma={ this.state.enigmas[this.state.selected] }/>
+                                <EnigmaContent enigma={ this.state.enigmas[this.state.selected] } reload={ this.load.bind(this) }/>
                             </Paper>
                         </Box>
                     </Box>
                     <Box style={{ width: "70%", maxHeight: "20%" }} px={2} color="text.disabled" >
-                        <UserDetails />
+                        <UserDetails details={ this.state.user_details }/>
                     </Box>
                 </Box>
                 <Backdrop open={this.state.loading} style={{ zIndex: 1500 }}>
