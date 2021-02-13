@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Link } from '@material-ui/core';
   
 class UserDetails extends React.Component {
 
@@ -22,9 +22,12 @@ class UserDetails extends React.Component {
                 </Box>
                 <Box width={0.33} color="inherit" textAlign="right">
                     { this.props.details.admin == 1 && 
-                        <a href="admin" color="inherit">Admin</a>  
+                        <Link href="admin" color="inherit">Admin</Link>  
                     }
-                    <a href="logout" color="inherit">Logout</a>
+                    { "  " }
+                    <Link href="#" onClick={ this.props.showChart.bind(this) } color="inherit">Classifica</Link>
+                    { "  " }
+                    <Link href="logout" color="inherit">Logout</Link>
                 </Box>
             </Box>
         );

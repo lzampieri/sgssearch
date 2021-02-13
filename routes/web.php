@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('web_api')->group(function() {
         // User details
         Route::get('/details', [ UserEnigmaController::class, 'userDetails' ])->name('details');
+        // Chart
+        Route::get('/chart', [ UserEnigmaController::class, 'chart' ])->name('chart');
         // User enigmas
         Route::get('/enigmas', [ UserEnigmaController::class, 'userEnigmas' ])->name('enigmas');
         // Submit solution

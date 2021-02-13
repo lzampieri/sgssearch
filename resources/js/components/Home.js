@@ -5,6 +5,7 @@ import UserDetails from './UserDetails';
 import ButtonsList from './ButtonsList';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import EnigmaContent from './EnigmaContent';
+import Chart from './Chart';
 
 const theme = createMuiTheme({
     palette: {
@@ -43,6 +44,10 @@ class Home extends React.Component {
         $.get( 'web_api/details').done( res => { this.setState( { user_details: res } ); });
     }
 
+    async showChart() {
+        this.setState( {selected: -1} );
+    }
+
     render() {
         return (
             <ThemeProvider theme={theme}>
@@ -57,12 +62,16 @@ class Home extends React.Component {
                         </Box>
                         <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
                             <Paper variant="outlined" style={{ height: "100%" }}>
+                            { this.state.selected == -1 ? (
+                                <Chart />
+                            ) : (
                                 <EnigmaContent enigma={ this.state.enigmas[this.state.selected] } reload={ this.load.bind(this) }/>
+                            ) }
                             </Paper>
                         </Box>
                     </Box>
                     <Box style={{ width: "70%", maxHeight: "20%" }} px={2} color="text.disabled" >
-                        <UserDetails details={ this.state.user_details }/>
+                        <UserDetails details={ this.state.user_details } showChart={ this.showChart.bind(this) } />
                     </Box>
                 </Box>
                 <Backdrop open={this.state.loading} style={{ zIndex: 1500 }}>

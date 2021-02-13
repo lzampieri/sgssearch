@@ -20,6 +20,10 @@ class UserEnigmaController extends Controller
         return Auth::user();
     }
 
+    public function chart() {
+        return User::all()->makeHidden(['admin', 'email']);
+    }
+
     public function userEnigmas() {
         $visible = Auth::user()->visibleEnigmas()->get();
         global $solved;
@@ -35,7 +39,7 @@ class UserEnigmaController extends Controller
     public function checkSolution(Request $request) {
         $params = $request->all();
         $enigma_id = $params['enigma_id'];
-        $proposal = strtolower($params['proposal']);
+        $proposal = $params['proposal'];
         Auth::user()->submittedSolutions()->create( [ 'enigma_id' => $enigma_id, 'value' => $proposal ] );
         $response = Enigma::find( $enigma_id )->solutions()->where( [ 'value' => $proposal ] )->first();
         if( !$response )

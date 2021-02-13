@@ -48,8 +48,8 @@ class AdminPage extends React.Component {
                 <CssBaseline />
                 <Box height="100vh" display="flex" justifyContent="center" alignContent="center" flexWrap="wrap">
                     <Box display="flex" style={{ width: "90%", height: "80%" }}>
-                        <Paper style={{ width: "20%", height: "100%" }} variant="outlined">
-                            <List style={{ overflow: 'auto'}} dense={true}>
+                        <Paper style={{ width: "20%", height: "100%", overflow: 'auto' }} variant="outlined">
+                            <List dense={true}>
                                 { this.state.enigmas.map( (e) =>
                                     <ListItem button selected={ e.id == this.state.selected } key={ e.id } onClick={this.selectEnigma.bind(this,e.id)}><ListItemText primary={ e.id } /></ListItem>
                                 )}
