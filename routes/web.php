@@ -56,6 +56,8 @@ Route::middleware(['auth.admin'])->group(function() {
     Route::prefix('web_api')->group(function() {
         // All enigmas
         Route::get('/all_enigmas', [ EditEnigmaController::class, 'allEnigmas' ]);
+        // All responses
+        Route::get('/all_responses', [ EditEnigmaController::class, 'allResponses' ]);
         // Edit enigma
         Route::post('/edit_enigma', [ EditEnigmaController::class, 'editEnigma' ]);
         // Edit solution

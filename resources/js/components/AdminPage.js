@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider, ListItemText, Backdrop, CircularProgress } from '@material-ui/core';
-import { SnackbarProvider, withSnackbar } from 'notistack';
+import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider,   ListItemText, Backdrop, CircularProgress, Button } from '@material-ui/core';
+import { SnackbarProvider } from 'notistack';
 import EditEnigma from './EditEnigma';
 import EditSolutions from './EditSolutions';
+import Stats from './Stats';
 
 const theme = createMuiTheme({
     palette: {
@@ -19,7 +20,10 @@ class AdminPage extends React.Component {
         this.state = {
             enigmas: [],
             selected: -1,
-            loading: true
+            stats: false,
+            loading: true,
+            stats_by_user: {},
+            stats_by_value: {}
         };
     }
 
@@ -41,6 +45,36 @@ class AdminPage extends React.Component {
         this.setState( { loading: false } );
     }
 
+    async loadStats() {
+        this.setState( { loading: true } );
+        var by_user = {};
+        var by_value = {};
+        await $.get( 'web_api/all_responses', (data) => {
+            data.map( item => {
+                var name = item.user.name.toLowerCase();
+                var value = item.value.toLowerCase();
+                var enigma_id = item.enigma_id;
+                if( !by_user[ enigma_id ] ) by_user[ enigma_id ] = {};
+                if( !by_value[ enigma_id ] ) by_value[ enigma_id ] = {};
+                if( !by_user[ enigma_id ][ name ] ) by_user[ enigma_id ][ name ] = [];
+                if( !by_value[ enigma_id ][ value ] ) by_value[ enigma_id ][ value ] = [];
+                by_user[ enigma_id ][ name ].push(value);
+                by_value[ enigma_id ][ value ].push(name);
+            })
+        }).promise();
+        this.setState({ stats_by_user: by_user, stats_by_value: by_value });
+        this.setState( { loading: false } );
+    }
+
+    showStats() {
+        this.setState( { stats: true } );
+        this.loadStats();
+    }
+
+    hideStats() {
+        this.setState( { stats: false } );
+    }
+
     render() {
         return (
             <ThemeProvider theme={theme}>
@@ -49,6 +83,10 @@ class AdminPage extends React.Component {
                 <Box height="100vh" display="flex" justifyContent="center" alignContent="center" flexWrap="wrap">
                     <Box display="flex" style={{ width: "90%", height: "80%" }}>
                         <Paper style={{ width: "20%", height: "100%", overflow: 'auto' }} variant="outlined">
+                            <Box display="flex" justifyContent="center">
+                                <Button variant={ this.state.stats ? "outlined" : "contained" } onClick={ this.hideStats.bind(this) }>Modifica</Button>
+                                <Button variant={ this.state.stats ? "contained" : "outlined" } onClick={ this.showStats.bind(this) }>Statistiche</Button>
+                            </Box>
                             <List dense={true}>
                                 { this.state.enigmas.map( (e) =>
                                     <ListItem button selected={ e.id == this.state.selected } key={ e.id } onClick={this.selectEnigma.bind(this,e.id)}><ListItemText primary={ e.id } /></ListItem>
@@ -57,10 +95,18 @@ class AdminPage extends React.Component {
                             </List>
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
-                            <EditEnigma enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
+                            { this.state.stats ? (
+                                <Stats stats={ this.state.stats_by_user[ this.state.selected ] } />
+                            ) : (
+                                <EditEnigma enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
+                            ) }
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
-                            <EditSolutions enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
+                            { this.state.stats ? (
+                                <Stats stats={ this.state.stats_by_value[ this.state.selected ] } />
+                            ) : (
+                                <EditSolutions enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
+                            ) }
                         </Paper>
                     </Box>
                 </Box>

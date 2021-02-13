@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enigma;
+use App\Models\SubmittedSolution;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -49,5 +50,9 @@ class EditEnigmaController extends Controller
         else
             $solution = $enigma->solutions()->find( $id )->update( $values );
         return $solution;
+    }
+
+    public function allResponses() {
+        return SubmittedSolution::all()->load( [ 'user' ] );
     }
 }
