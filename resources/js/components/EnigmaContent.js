@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, TextField } from '@material-ui/core';
-import EnigmaButton from './EnigmaButton';
+import { Box, TextField, Link } from '@material-ui/core';
 import SendButton from './SendButton';
 import { withSnackbar } from 'notistack';
+import processString from 'react-process-string';
   
 class EnigmaContent extends React.Component {
 
@@ -39,12 +39,34 @@ class EnigmaContent extends React.Component {
         }
     }
 
+    regex = [ {
+        regex: /\[img (.*)\]/gi,
+        fn: (key, result) => <img
+                src={ 'storage/uploads/' + result[1] }
+                style={{ maxWidth: "100%", maxHeigth: "100%" }}
+                />
+    }, {
+        regex: /\[link ([^|]*)\|([^|]*)\]/gi,
+        fn: (key, result) => <Link
+                href={ result[2] }
+                >
+                    { result[1] }
+                </Link>
+    }, {
+        regex: /\[file ([^|]*)\|([^|]*)\]/gi,
+        fn: (key, result) => <Link
+                href={ 'storage/uploads/' + result[2] }
+                >
+                    { result[1] }
+                </Link>
+    }];
+
     render() {
         if( !this.props.enigma ) return "";
         return (
             <Box p={2} display="flex" flexDirection="column" style={{ height: "100%" }}>
                 <Box flexGrow={1} style={{ overflow: "auto "}}>
-                    {  this.props.enigma.text }
+                    { processString( this.regex )(this.props.enigma.text) }
                 </Box>
                 <Box pt={2} display="flex" flexDirection="row">
                     <Box flexGrow={1}>

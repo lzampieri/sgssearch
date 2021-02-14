@@ -62,6 +62,8 @@ Route::middleware(['auth.admin'])->group(function() {
         Route::post('/edit_enigma', [ EditEnigmaController::class, 'editEnigma' ]);
         // Edit solution
         Route::post('/edit_solution', [ EditEnigmaController::class, 'editSolution' ]);
+        // Upload file
+        Route::post('/upload_file', [ EditEnigmaController::class, 'uploadFile' ]);
     });
 });
 

@@ -55,4 +55,9 @@ class EditEnigmaController extends Controller
     public function allResponses() {
         return SubmittedSolution::all()->load( [ 'user' ] );
     }
+
+    public function uploadFile(Request $request){
+        $path = $request->file('attachment')->storeAs('public/uploads', $request->get('filename') );
+        return $path;
+    }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider,   ListItemText, Backdrop, CircularProgress, Button } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import EditEnigma from './EditEnigma';
 import EditSolutions from './EditSolutions';
 import Stats from './Stats';
+import UploadFile from './UploadFile';
 import theme from './theme';  
 
 class AdminPage extends React.Component {
@@ -87,6 +87,9 @@ class AdminPage extends React.Component {
                                 )}
                                 <ListItem button selected={ -1 == this.state.selected } onClick={this.selectEnigma.bind(this,-1)}><ListItemText primary="New enigma" /></ListItem>
                             </List>
+                            <Box style={{ width: "100%" }}>
+                                <UploadFile style={{ width: "100%" }} />
+                            </Box>
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
                             { this.state.stats ? (
@@ -114,7 +117,3 @@ class AdminPage extends React.Component {
 }
 
 export default AdminPage;
-
-if (document.getElementById('admin_page')) {
-    ReactDOM.render(<AdminPage />, document.getElementById('admin_page'));
-}

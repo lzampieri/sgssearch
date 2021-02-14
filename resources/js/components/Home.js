@@ -1,12 +1,49 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider, CircularProgress, Backdrop } from '@material-ui/core';
+import { Box, CssBaseline, Paper, ThemeProvider, CircularProgress, Backdrop, withStyles } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import ButtonsList from './ButtonsList';
 import { SnackbarProvider } from 'notistack';
 import EnigmaContent from './EnigmaContent';
 import Chart from './Chart';
 import theme from './theme';
+
+const styles = theme => ({
+    bigContainer: {
+        height: "100vh",
+        justifyContent: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        [ theme.breakpoints.down('sm')]: {
+            height: "auto",
+            alignContent: "normal",
+        }
+    },
+    mainPanel: {
+        width: "70%",
+        maxHeight: "80%",
+        flexWrap: "no-wrap",
+        [ theme.breakpoints.down('sm')]: {
+            width: "100%",
+            maxHeight: "none",
+            flexWrap: "wrap"
+        }
+    },
+    parallelPaper: {
+        width: "50%",
+        maxHeight: "100%",
+        [ theme.breakpoints.down('sm')]: {
+            width: "100%",
+            maxHeight: null
+        }
+    },
+    footer: {
+        width: "70%",
+        maxHeight: "20%",
+        [ theme.breakpoints.down('sm')]: {
+            width: "100%"
+        }
+    }
+})
 
 class Home extends React.Component {
 
@@ -43,18 +80,19 @@ class Home extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <ThemeProvider theme={theme}>
             <SnackbarProvider maxSnack={3}>
                 <CssBaseline />
-                <Box height="100vh" display="flex" justifyContent="center" alignContent="center" flexWrap="wrap">
-                    <Box display="flex" style={{ width: "70%", maxHeight: "80%" }}>
-                        <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
+                <Box className={ classes.bigContainer } display="flex" >
+                    <Box display="flex" className={ classes.mainPanel } >
+                        <Box m={1} p={1} className={ classes.parallelPaper } >
                             <Paper variant="outlined" style={{ height: "100%", overflow: 'auto'  }}>
                                 <ButtonsList select={this.select.bind(this)} enigmas={this.state.enigmas} selected={this.state.selected} />
                             </Paper>
                         </Box>
-                        <Box m={1} p={1} style={{ width: "50%", maxHeight: "100%" }}>
+                        <Box m={1} p={1} className={ classes.parallelPaper } >
                             <Paper variant="outlined" style={{ height: "100%" }}>
                             { this.state.selected == -1 ? (
                                 <Chart />
@@ -64,7 +102,7 @@ class Home extends React.Component {
                             </Paper>
                         </Box>
                     </Box>
-                    <Box style={{ width: "70%", maxHeight: "20%" }} px={2} color="text.disabled" >
+                    <Box className={ classes.footer } px={2} color="text.disabled" >
                         <UserDetails details={ this.state.user_details } showChart={ this.showChart.bind(this) } />
                     </Box>
                 </Box>
@@ -77,8 +115,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
-
-if (document.getElementById('home')) {
-    ReactDOM.render(<Home />, document.getElementById('home'));
-}
+export default withStyles(styles)(Home);

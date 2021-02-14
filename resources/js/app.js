@@ -12,5 +12,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Home');
-require('./components/AdminPage');
+import ReactDOM from 'react-dom';
+import Home from './components/Home';
+import AdminPage from './components/AdminPage';
+
+if (document.getElementById('home')) {
+    ReactDOM.render(<Home />, document.getElementById('home'));
+}
+if (document.getElementById('admin_page')) {
+    ReactDOM.render(<AdminPage />, document.getElementById('admin_page'));
+}
