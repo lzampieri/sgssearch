@@ -3,16 +3,10 @@ import ReactDOM from 'react-dom';
 import { Box, createMuiTheme, CssBaseline, Paper, ThemeProvider, CircularProgress, Backdrop } from '@material-ui/core';
 import UserDetails from './UserDetails';
 import ButtonsList from './ButtonsList';
-import { SnackbarProvider, withSnackbar } from 'notistack';
+import { SnackbarProvider } from 'notistack';
 import EnigmaContent from './EnigmaContent';
 import Chart from './Chart';
-
-const theme = createMuiTheme({
-    palette: {
-        type: 'dark',
-    },
-  });
-  
+import theme from './theme';
 
 class Home extends React.Component {
 
@@ -20,7 +14,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             enigmas: [],
-            user_details: {},
+            user_details: null,
             selected: -1,
             loading: true
         };

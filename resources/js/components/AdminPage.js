@@ -5,13 +5,7 @@ import { SnackbarProvider } from 'notistack';
 import EditEnigma from './EditEnigma';
 import EditSolutions from './EditSolutions';
 import Stats from './Stats';
-
-const theme = createMuiTheme({
-    palette: {
-        type: 'dark',
-    }
-  });
-  
+import theme from './theme';  
 
 class AdminPage extends React.Component {
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Link } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
   
 class UserDetails extends React.Component {
 
@@ -11,7 +12,9 @@ class UserDetails extends React.Component {
     }  
 
     render() {
-        if( !this.props.details ) return "";
+        if( !this.props.details ) return (
+            <Skeleton style={{ width: "100%" }} animation="wave" />
+        );
         return (
             <Box display="flex" width={1} color="inherit">
                 <Box width={0.33}>
