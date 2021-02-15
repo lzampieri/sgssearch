@@ -25,14 +25,13 @@ Route::get('/logout_google', [ GoogleAuthController::class, 'logout' ] )->name('
 Route::redirect('/login', 'login_google' ) -> name('login') ;
 Route::redirect('/logout', 'logout_google' ) -> name('logout') ;
 
+// Home Page
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
 
 Route::middleware(['auth'])->group(function() {
-    
-    // Home Page
-    Route::get('/', function () {
-        return view('home');
-    })->name('home');
-
     // API-like webapp tools
     Route::prefix('web_api')->group(function() {
         // User details

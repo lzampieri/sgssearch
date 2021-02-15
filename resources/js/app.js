@@ -15,10 +15,14 @@ require('./bootstrap');
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
 import AdminPage from './components/AdminPage';
+import WelcomePage from './components/WelcomePage';
 
 if (document.getElementById('home')) {
     ReactDOM.render(<Home />, document.getElementById('home'));
 }
 if (document.getElementById('admin_page')) {
     ReactDOM.render(<AdminPage />, document.getElementById('admin_page'));
+}
+if (document.getElementById('welcome_page')) {
+    ReactDOM.render(<WelcomePage />, document.getElementById('welcome_page'));
 }
