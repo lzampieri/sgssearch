@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, CssBaseline, ThemeProvider, withStyles, Typography, Button } from '@material-ui/core';
-import VpnKeyTwoToneIcon from '@material-ui/icons/VpnKeyTwoTone';
 import theme from './theme';
 
 const styles = theme => ({

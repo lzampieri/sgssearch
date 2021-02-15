@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, Typography, Avatar } from '@material-ui/core';
+import { Box, List, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import ChartItem from './ChartItem';
 import { withSnackbar } from 'notistack';

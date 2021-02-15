@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, createMuiTheme, CssBaseline, Paper, List, ListItem, ThemeProvider,   ListItemText, Backdrop, CircularProgress, Button } from '@material-ui/core';
+import { Box, CssBaseline, Paper, List, ListItem, ThemeProvider,   ListItemText, Backdrop, CircularProgress, Button } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import EditEnigma from './EditEnigma';
 import EditSolutions from './EditSolutions';
