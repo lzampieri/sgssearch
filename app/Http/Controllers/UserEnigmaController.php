@@ -21,7 +21,7 @@ class UserEnigmaController extends Controller
     }
 
     public function chart() {
-        return User::all()->makeHidden(['admin', 'email']);
+        return User::where('admin',0)->get()->makeHidden(['admin', 'email']);
     }
 
     public function userEnigmas() {

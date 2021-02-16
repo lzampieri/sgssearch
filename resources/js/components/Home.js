@@ -95,7 +95,7 @@ class Home extends React.Component {
                         <Box m={1} p={1} className={ classes.parallelPaper } >
                             <Paper variant="outlined" style={{ height: "100%" }}>
                             { this.state.selected == -1 ? (
-                                <Chart />
+                                <Chart myid={ this.state.user_details != null ? this.state.user_details.id : -1 } />
                             ) : (
                                 <EnigmaContent enigma={ this.state.enigmas[this.state.selected] } reload={ this.load.bind(this) }/>
                             ) }

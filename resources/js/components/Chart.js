@@ -37,7 +37,7 @@ class Chart extends React.Component {
                 <Typography variant="h5">Classifica</Typography>
                 <List dense={true}>
                     { this.state.chart.map( (e) =>
-                        <ChartItem key={ e.id } user={e} />
+                        <ChartItem key={ e.id } user={e} me={ e.id == this.props.myid } />
                     )}
                 </List>
                 { this.state.chart.length == 0 && (
