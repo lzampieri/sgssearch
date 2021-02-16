@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextField, Link } from '@material-ui/core';
+import { Box, TextField, Link, Typography } from '@material-ui/core';
 import SendButton from './SendButton';
 import { withSnackbar } from 'notistack';
 import processString from 'react-process-string';
@@ -59,6 +59,12 @@ class EnigmaContent extends React.Component {
                 >
                     { result[1] }
                 </Link>
+    }, {
+        regex: /#([^|]*)#/gi,
+        fn: (key, result) => <Typography variant="h4"
+                >
+                    { result[1] }
+                </Typography>
     }];
 
     render() {

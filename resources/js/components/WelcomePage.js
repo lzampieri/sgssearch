@@ -37,7 +37,7 @@ class WelcomePage extends React.Component {
                 <CssBaseline />
                 <Box className={ classes.bigContainer } display="flex" >
                     <Box display="flex" className={ classes.mainPanel } flexDirection="column" alignItems="center" >
-                        <Typography variant="h1">La rete di Carlotta</Typography>
+                        <Typography variant="h1">Spoons</Typography>
                         È consigliato usare l'account istituzionale.
                         <Button href="login_google" variant="contained">Login</Button>
                     </Box>
