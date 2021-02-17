@@ -3,6 +3,7 @@
 use App\Http\Controllers\EditEnigmaController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\UserEnigmaController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +67,8 @@ Route::middleware(['auth.admin'])->group(function() {
     });
 });
 
-Route::get('/react_test', function () {
-    return view('react_test');
-});
+// Utilities: migrate database
+Route::get('/artisan/migrate', function () {
+    Artisan::call('migrate');
+    return Artisan::output();
+}); 
