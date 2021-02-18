@@ -22,3 +22,6 @@ Most useful commands are:
 * `php artisan migrate:refresh` to create table in the database
 * `npm run watch` to compile js file from resources/js to public/js live during deploy
 * `npm run prod` to compile js file from resources/js to public/js for the final publishing
+
+### Warning
+The directive `RewriteBase /public/` on the file `public/.htaccess` and the directive `URL::forceScheme('https');` in the file `app\Providers\AppServiceProvider.php` must be commented for local tests, but must be enabled for remote deploy.
