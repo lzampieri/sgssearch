@@ -34,11 +34,9 @@ const styles = theme => ({
         width: "50%",
         maxHeight: "100%",
         [ theme.breakpoints.down('sm')]: {
+            width: "100%",
             maxHeight: null
         },
-        [ theme.breakpoints.down('xs')]: {
-            width: "100%",
-        }
     },
     footer: {
         width: "70%",
