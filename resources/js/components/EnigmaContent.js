@@ -26,6 +26,7 @@ class EnigmaContent extends React.Component {
         }
         if( data.hint )
             this.props.enqueueSnackbar( data.hint );
+        this.input.current.value = "";
         setTimeout( this.resetState.bind(this), 2000 );
     }
 

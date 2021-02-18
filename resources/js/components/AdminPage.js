@@ -93,14 +93,14 @@ class AdminPage extends React.Component {
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
                             { this.state.stats ? (
-                                <Stats stats={ this.state.stats_by_user[ this.state.selected ] } />
+                                <Stats stats={ this.state.stats_by_user[ this.state.selected ] } prefix = { this.state.selected*2 } />
                             ) : (
                                 <EditEnigma enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
                             ) }
                         </Paper>
                         <Paper style={{ width: "40%", height: "100%" }} variant="outlined">
                             { this.state.stats ? (
-                                <Stats stats={ this.state.stats_by_value[ this.state.selected ] } />
+                                <Stats stats={ this.state.stats_by_value[ this.state.selected ] } prefix = { this.state.selected*2+1 } />
                             ) : (
                                 <EditSolutions enigmaId={ this.state.selected } values={ this.state.enigmas[this.state.selected] } reload={this.reload.bind(this)} />
                             ) }

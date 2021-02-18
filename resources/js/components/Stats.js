@@ -11,10 +11,16 @@ class Stats extends React.Component {
 
     render() {
         if( !this.props.stats ) return "";
+        var id_generator = 0;
         return (
             <List style={{ height: "100%", overflow: 'auto' }}>
-                { Object.keys(this.props.stats).map( key => (
-                    <StatsItem key={ key } name={ key } list={ this.props.stats[key] } />
+                { Object.keys(this.props.stats).map( key =>
+                    (
+                    <StatsItem
+                        key={ this.props.prefix * 1000 + ( ++id_generator ) }
+                        prefix={ this.props.prefix * 1000 + ( ++id_generator ) }
+                        name={ key }
+                        list={ this.props.stats[key] } />
                 ) ) }
             </List>
         );

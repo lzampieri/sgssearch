@@ -17,6 +17,7 @@ class StatsItem extends React.Component {
     }    
 
     render() {
+        var id_generator = 0;
         return (
             <Box>
             <ListItem button onClick={ this.handleClick.bind(this) }>
@@ -27,7 +28,7 @@ class StatsItem extends React.Component {
                 <Box pl={3}>
                 <List>
                     { this.props.list.map( item => (
-                        <ListItem key={ item } >
+                        <ListItem key={ this.props.prefix * 1000 + ( ++id_generator ) } >
                             <ListItemText primary={ item } />
                         </ListItem>
                     ))}

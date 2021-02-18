@@ -23,23 +23,27 @@ const styles = theme => ({
         maxHeight: "80%",
         flexWrap: "no-wrap",
         [ theme.breakpoints.down('sm')]: {
-            width: "100%",
             maxHeight: "none",
             flexWrap: "wrap"
+        },
+        [ theme.breakpoints.down('xs')]: {
+            width: "100%",
         }
     },
     parallelPaper: {
         width: "50%",
         maxHeight: "100%",
         [ theme.breakpoints.down('sm')]: {
-            width: "100%",
             maxHeight: null
+        },
+        [ theme.breakpoints.down('xs')]: {
+            width: "100%",
         }
     },
     footer: {
         width: "70%",
         maxHeight: "20%",
-        [ theme.breakpoints.down('sm')]: {
+        [ theme.breakpoints.down('xs')]: {
             width: "100%"
         }
     }
