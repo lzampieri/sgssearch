@@ -16,6 +16,7 @@ class EnigmaContent extends React.Component {
     
     async checkSolution() {
         if( this.state.response > 0 ) return;
+        if( this.input.current.value.length < 1 ) return;
         this.setState( {response: 1} );
         var data = await $.post( 'web_api/check_solution', { enigma_id: this.props.enigma.id, proposal: this.input.current.value } );
         if( data.id != -1 && data.valid > 0 ) {
@@ -55,7 +56,7 @@ class EnigmaContent extends React.Component {
                 </Link>
     }, {
         regex: /\[file ([^|]*)\|([^|]*)\]/gi,
-        fn: (key, result) => <Link
+        fn: (key, result) => <Link color="inherit"
                 href={ 'storage/uploads/' + result[2] }
                 >
                     { result[1] }
@@ -66,6 +67,9 @@ class EnigmaContent extends React.Component {
                 >
                     { result[1] }
                 </Typography>
+    }, {
+        regex: /\n/gi,
+        fn: (key, result) => <br/>
     }];
 
     render() {
