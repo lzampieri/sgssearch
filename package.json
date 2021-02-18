@@ -1,24 +1,38 @@
 {
-  "name": "sgssearch",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "start": " SET NODE_ENV=production&&npx babel --watch js_src --out-dir js --presets react-app/prod"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lzampieri/sgssearch.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lzampieri/sgssearch/issues"
-  },
-  "homepage": "https://github.com/lzampieri/sgssearch#readme",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2",
-    "chokidar": "^3.5.1"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-class-properties": "^7.12.13",
+        "@babel/preset-react": "^7.0.0",
+        "axios": "^0.21",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.12",
+        "postcss": "^8.1.14",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.15.2",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "@material-ui/core": "^4.11.3",
+        "@material-ui/icons": "^4.11.2",
+        "@material-ui/lab": "^4.0.0-alpha.57",
+        "formik": "^2.2.6",
+        "formik-material-ui": "^3.0.1",
+        "material-ui-image": "^3.3.1",
+        "notistack": "^1.0.3",
+        "react-process-string": "^1.2.0"
+    }
 }
