@@ -66,7 +66,7 @@ class EnigmaContent extends React.Component {
         regex: /\[audio (.*)\]/gi,
         fn: (key, result) => <ReactAudioPlayer
                 src={ 'storage/uploads/' + result[1] }
-                //style={{ maxWidth: "100%", maxHeigth: "100%" }}
+                style={{ width: "100%" }}
                 controls
                 />
     }, {
