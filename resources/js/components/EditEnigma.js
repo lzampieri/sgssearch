@@ -76,7 +76,7 @@ class EditEnigma extends React.Component {
                             rows: 10
                         }}
                         label="Enigma"
-                        placeholder="Disponibili le espressioni #titoletto#, [img filename], [file displayname|filename], [link displayname|url]"
+                        placeholder="Disponibili le espressioni #titoletto#, [img filename], [audio filename], [file displayname|filename], [link displayname|url]"
                         style={{ width: "100%" }}
                         InputLabelProps={{ shrink: true }}
                     />

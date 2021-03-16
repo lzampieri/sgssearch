@@ -3,6 +3,7 @@ import { Box, TextField, Link, Typography } from '@material-ui/core';
 import SendButton from './SendButton';
 import { withSnackbar } from 'notistack';
 import processString from 'react-process-string';
+import ReactAudioPlayer from 'react-audio-player';
   
 class EnigmaContent extends React.Component {
 
@@ -61,6 +62,13 @@ class EnigmaContent extends React.Component {
                 >
                     { result[1] }
                 </Link>
+    },{
+        regex: /\[audio (.*)\]/gi,
+        fn: (key, result) => <ReactAudioPlayer
+                src={ 'storage/uploads/' + result[1] }
+                //style={{ maxWidth: "100%", maxHeigth: "100%" }}
+                controls
+                />
     }, {
         regex: /#([^|]*)#/gi,
         fn: (key, result) => <Typography variant="h4"
